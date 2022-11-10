@@ -1,0 +1,115 @@
+@Metadata.layer: #CORE
+
+@UI:{
+       headerInfo:{
+                typeName: 'Flight Schedule',
+                typeNamePlural: 'Flight Schedules',
+                title:{
+                        type: #STANDARD,
+                        label: 'Connections',
+                        value: 'connid'
+                },
+                description:{
+                        type: #STANDARD,
+                        value: 'CarrName'
+                }
+       }
+}
+
+annotate view zdd_c_schedule with
+{
+  @UI.facet: [
+    {
+      id: 'schedule-info',
+      purpose: #STANDARD,
+      position: 1,
+      label: 'Flight Schedule',
+      type: #COLLECTION
+    },
+
+    { type: #FIELDGROUP_REFERENCE ,
+         label : 'Flight Information',
+         parentId: 'schedule-info',
+         id: 'Information' ,
+         position: 1,
+         targetQualifier: 'information'
+    },
+
+    { type: #FIELDGROUP_REFERENCE ,
+         label : 'Departure Information',
+         parentId: 'schedule-info',
+         id: 'Departure' ,
+         position: 2,
+         targetQualifier: 'departure'
+    },
+    
+    { type: #FIELDGROUP_REFERENCE ,
+         label : 'Destination Information',
+         parentId: 'schedule-info',
+         id: 'Destination' ,
+         position: 3,
+         targetQualifier: 'destination'
+    },
+    {
+      purpose: #STANDARD,
+      position: 2,
+      importance: #HIGH,
+      label: 'Single Flight Bookings',
+      type: #LINEITEM_REFERENCE,
+      targetElement: '_Booking'
+    }
+  ]
+
+  @UI.lineItem: [{position: 1 }] // report order
+  @UI.selectionField: [{ position: 1 }] // filter postion
+  @UI.fieldGroup: [{ qualifier: 'information', position: 1 ,importance: #HIGH, label: 'Airline ID'}]
+  carrid;
+
+  @UI.lineItem: [{position: 2 }] // report order
+  connid;
+
+  @UI.lineItem: [{position: 3,label: 'Country From' }] // report order
+  @UI.fieldGroup: [{ qualifier: 'departure', position: 1 ,importance: #HIGH, label: 'Country From'}]
+  countryfr;
+
+  @UI.lineItem: [{position: 4 }] // report order
+  @UI.fieldGroup: [{ qualifier: 'departure', position: 2 ,importance: #HIGH, label: 'Depart. city'}]
+  cityfrom;
+
+  @UI.lineItem: [{position: 5 }] // report order
+  @UI.fieldGroup: [{ qualifier: 'departure', position: 3 ,importance: #HIGH, label: 'Departure airport'}]
+  airpfrom;
+
+  @UI.lineItem: [{position: 6 ,label: 'Country To' }] // report order
+  @UI.fieldGroup: [{ qualifier: 'destination', position: 1 ,importance: #HIGH, label: 'Country To'}]
+  countryto;
+
+  @UI.lineItem: [{position: 7 }] // report order
+  @UI.fieldGroup: [{ qualifier: 'destination', position: 2 ,importance: #HIGH, label: 'Arrival city'}]
+  cityto;
+
+  @UI.lineItem: [{position: 8 }] // report order
+  @UI.fieldGroup: [{ qualifier: 'destination', position: 3 ,importance: #HIGH, label: 'Destination airport'}]
+  airpto;
+
+  @UI.lineItem: [{position: 9 }] // report order
+  @UI.fieldGroup: [{ qualifier: 'departure', position: 4 ,importance: #HIGH, label: 'Departure time'}]
+  deptime;
+
+  @UI.lineItem: [{position: 10 }] // report order
+  @UI.fieldGroup: [{ qualifier: 'destination', position: 4 ,importance: #HIGH, label: 'Arrival Time'}]
+  arrtime;
+
+  @UI.lineItem: [{position: 11 }] // report order
+  @UI.fieldGroup: [{ qualifier: 'information', position: 2 ,importance: #HIGH, label: 'Distance'}]
+  distance;
+
+  @UI.lineItem: [{position: 12 }] // report order
+  @UI.fieldGroup: [{ qualifier: 'information', position: 3 ,importance: #HIGH, label: 'Flight type'}]
+  fltype;
+  @UI.lineItem: [{position: 13 }] // report order
+
+  @UI.fieldGroup: [{ qualifier: 'information', position: 4 ,importance: #HIGH, label: 'Arrival n day(s) later'}]
+  period;
+
+}

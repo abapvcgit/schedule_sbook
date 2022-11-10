@@ -1,0 +1,115 @@
+@Metadata.layer: #CORE
+@UI:{
+       headerInfo:{
+                typeName: 'Booking',
+                typeNamePlural: 'Bookings',
+                title:{
+                        type: #STANDARD,
+                        label: 'Connections',
+                        value: 'bookid'
+                },
+                description:{
+                        type: #STANDARD,
+                        value: 'passname'
+                }
+       }
+}
+annotate view zdd_c_sbook with
+{
+  @UI.facet: [
+   {
+     id: 'booking-info',
+     purpose: #STANDARD,
+     position: 1,
+     label: 'Single Flight Booking',
+     type: #COLLECTION
+   },
+
+   { type: #FIELDGROUP_REFERENCE ,
+      label : 'Flight Information',
+      parentId: 'booking-info',
+      id: 'Information' ,
+      position: 1,
+      targetQualifier: 'booking-inf'
+   },
+   { type: #FIELDGROUP_REFERENCE ,
+      label : 'Booking Information',
+      parentId: 'booking-info',
+      id: 'Pricing' ,
+      position: 2,
+      targetQualifier: 'booking-pric'
+   }
+   ]
+
+
+
+  @UI.lineItem: [{position: 1 }]
+  @UI.fieldGroup: [{ qualifier: 'booking-inf', position: 1 ,importance: #HIGH}]
+  fldate;
+
+  @UI.lineItem: [
+                    {position: 2 }
+  //                    {position: 10, importance: #LOW, type: #FOR_ACTION, dataAction: 'BOPF:FS_SET_INVOICE', label: 'Set Invoice'} // button action definition
+                ]
+  bookid;
+
+  @UI.lineItem: [{position: 3}]
+  @UI.fieldGroup: [{ qualifier: 'booking-pric', position: 1 ,importance: #HIGH}]
+  customid;
+
+  @UI.lineItem: [{position: 4 }]
+  @UI.fieldGroup: [{ qualifier: 'booking-pric', position: 2 ,importance: #HIGH}]
+  custtype;
+
+  @UI.lineItem: [{position: 5,label: 'Smoker' }]
+  @UI.fieldGroup: [{ qualifier: 'booking-pric', position: 3 ,importance: #HIGH, label: 'Smoker'}]
+  smoker;
+
+  @UI.lineItem: [{position: 6 }]
+  @UI.fieldGroup: [{ qualifier: 'booking-pric', position: 4 ,importance: #HIGH}]
+  luggweight;
+
+  @UI.lineItem: [{position: 7 , label: ' Ivoiced'}]
+  invoice;
+
+  @UI.lineItem: [{position: 8 }]
+  @UI.fieldGroup: [{ qualifier: 'booking-pric', position: 5 ,importance: #HIGH}]
+  class;
+
+  @UI.lineItem: [{position: 9 }]
+  @UI.fieldGroup: [{ qualifier: 'booking-inf', position: 4 ,importance: #HIGH}]
+  forcuram;
+  @UI.lineItem: [{position: 10 }]
+  @UI.fieldGroup: [{ qualifier: 'booking-inf', position: 5 ,importance: #HIGH}]
+  loccuram;
+
+  @UI.lineItem: [{position: 11 }]
+  @UI.fieldGroup: [{ qualifier: 'booking-inf', position: 2 ,importance: #HIGH}]
+  order_date;
+
+  @UI.lineItem: [{position: 12 }]
+  @UI.fieldGroup: [{ qualifier: 'booking-inf', position: 3 ,importance: #HIGH}]
+  agencynum;
+
+
+  @UI.lineItem: [{position: 13 , label: 'Canceled Booking'}]
+  cancelled;
+
+  @UI.lineItem: [{position: 14, label: 'Reserverd Booking' }]
+  reserved;
+
+  @UI.fieldGroup: [{ qualifier: 'booking-pric', position: 6 ,importance: #HIGH}]
+  @UI.hidden: true
+  passname;
+
+  @UI.lineItem: [{position: 15 }]
+  @UI.fieldGroup: [{ qualifier: 'booking-pric', position: 7 ,importance: #HIGH}]
+  passform;
+
+  @UI.lineItem: [{position: 16 }]
+  passbirth;
+  /* Associations */
+  //    _Fligth;
+  //    _Scustom;
+
+}
